@@ -1,0 +1,111 @@
+*
+{
+    font: 1em Arial;
+    margin: 0;
+    padding:0;
+    box-sizing: border-box;
+}
+h1
+{
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    text-align: center;
+    color:darkred;
+}
+.Contenedor_Del_Juego
+{
+    border-style: ridge;
+    border-width: 2em;
+    margin-left: 25%;
+    margin-right: 25%;
+    width:50%;
+    display: grid;
+    grid-template-columns: repeat(5,minmax(0.5em,0.5em));
+    grid-template-rows: repeat(5,minmax(0.5em,0.5em));
+    grid-auto-rows:5em;
+    background-color: aliceblue;
+    height:25em;
+    justify-content: space-between;
+}
+.Celula_Dead
+{
+    border-style: solid ;
+    border-color: black;
+    background-color: crimson;
+}
+.Celula_Life
+{
+    border-style: solid ;
+    border-color: black;
+    background-color: green;
+}
+.Botton2,.Botton1 {
+	box-shadow:inset 0px 0px 37px -15px #91b8b3;
+	background:linear-gradient(to bottom, #768d87 5%, #6c7c7c 100%);
+	background-color:#768d87;
+	border-radius:18px;
+	border:1px solid #566963;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Trebuchet MS;
+	font-size:20px;
+	font-weight:bold;
+	padding:11px 23px;
+	text-decoration:none;
+	text-shadow:9px 0px 50px #2b665e;
+}
+.Botton2,.Botton1:hover {
+	background:linear-gradient(to bottom, #6c7c7c 5%, #768d87 100%);
+	background-color:#6c7c7c;
+}
+.Botton2,.Botton1:active {
+	position:relative;
+	top:1px;
+}
+
+
+.Botton1
+{
+    margin-left: 25%;
+}
+.Botton2
+{
+    float: right;
+    margin-right: 25%;
+}
+.Configuracion
+{
+    display: flex;
+    background-color: teal;
+    height:11em;
+    width:50%;
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-top: 1em;
+    border-style: groove;
+    flex-direction: column;
+}
+form
+{
+    width: 100%;
+    text-align: center;
+}
+h2
+{
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+    text-align: center;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    color: beige;
+}
+.Agua
+{
+    display: block;
+    background-color: teal;
+}
+.Tierra
+{
+    border-style: solid;
+    background-color: burlywood;
+}

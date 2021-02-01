@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+   <head>
+      <link rel="stylesheet" type="text/css" href="estilo.css"> 
+   </head>
+   <body>
+      <script src="./GameOfLife.js"> </script>
+      <h1>Juego de la vida</h1>
+      <div class="Contenedor_Del_Juego">
+      </div>
+      <button class="Botton1" onclick="PasarGeneracion(OptenerSizeWorld())">Pasar de Generacion</button> <button class="Botton2" onclick="NuevoMapa(OptenerSizeWorld())">Nuevo Juego</button>
+      <div class="Configuracion">
+         <h2>Configuraciones </h2>
+         <form>
+            <p>Tamaño del mundo</p>
+            <input type="text" value="10" id="SizeWorld"></input>
+            <p>Generacion</p>
+            <input type="text" value="0" id="Generaciones"></input>
+            <p>Algoritmo</p> 
+            <input type="text" value="Sebastian" id="Algoritmo"></input>
+         </form>
+      </div>
+   </body>
+   <script>
+   window.addEventListener('load',cargar);
+   function OptenerSizeWorld()
+   {
+      var campo_SizeWorld = document.getElementById("SizeWorld");
+      var SizeWorld = campo_SizeWorld.value;
+      return SizeWorld;
+   }
+   function OptenerGeneraciones()
+   {
+      var Generaciones_campo = document.getElementById("Generaciones");
+      var Generaciones = Generaciones_campo.getAttribute("value");
+      return Generaciones;
+   }
+
+   function ModificarGeneraciones(valor)
+   {
+
+      var Generaciones = document.getElementById("Generaciones");
+      Generaciones.setAttribute("value",valor);
+   }
+   function cargar(){
+      //Tiene que ser par
+      var SizeWorld = OptenerSizeWorld();
+      var largo = (50 / SizeWorld );
+      var juego = CrearJuegoDeLaVida(SizeWorld);
+
+      DiujarEnHTML(juego,largo,SizeWorld);
+   }
+   function PasarGeneracion(size) 
+   {
+      var Algoritmo_campo = document.getElementById("Algoritmo");
+      var Algoritmo = Algoritmo_campo.value;
+      console.log(Algoritmo);
+      var contenedor = document.getElementsByClassName("Contenedor_Del_Juego")[0];
+      var Game = CrearJuegoDeLaVida(OptenerSizeWorld());
+      var Generaciones = OptenerGeneraciones();
+      var hijos = contenedor.children;
+      var arr = [].slice.call(hijos);
+      if(((size * 2) * (size * 2) ) == arr.length ){
+      var h = 0;
+         for (let index = 0; index < size; index++) {
+               for (let J = 0; J < size; J++) {
+                  if(arr[h].className  == "Celula_Life")
+                  {
+                     Game[index][J]  = 1;
+                  }
+                  else
+                  {
+                     Game[index][J]  = 0;
+                  }
+                 
+                  h++;
+               }
+            }
+            while (contenedor.firstChild) 
+            {
+               contenedor.removeChild(contenedor.firstChild);
+            }
+             Game = ReglasDeJuego(Algoritmo,Game);
+      DiujarEnHTML(Game,((OptenerSizeWorld() / 50),OptenerSizeWorld()));
+      Generaciones++;
+      ModificarGeneraciones(Generaciones);
+       }
+       else
+       {
+         alert("No puedes pasar de generacion si cambias el tamaño del mundo , vuelve a ponerlo como antes");
+       }
+   }
+   function NuevoMapa(size)
+   {
+      if(size <= 0)
+      {
+         size = 1;
+         var campo_SizeWorld = document.getElementById("SizeWorld");
+         campo_SizeWorld.value = 1;
+      }
+      var contenedor = document.getElementsByClassName("Contenedor_Del_Juego")[0];
+      while (contenedor.firstChild) 
+            {
+               contenedor.removeChild(contenedor.firstChild);
+            }
+      var NuevoJuego = CrearJuegoDeLaVida(size)
+      DiujarEnHTML(NuevoJuego,50/size,size);
+      ModificarGeneraciones(0);
+
+   }
+   function DiujarEnHTML(Game , largo_casillas , SizeWorld) 
+   {
+      var contenedor = document.getElementsByClassName("Contenedor_Del_Juego");
+      contenedor[0].style.gridTemplateColumns = 'repeat('+ SizeWorld * 2 + ' , minmax('+largo_casillas+'% ,'+largo_casillas+'%))';
+      contenedor[0].style.gridTemplateRows = 'repeat('+ SizeWorld * 2+ ' , minmax('+largo_casillas+'% ,'+largo_casillas+'%))'
+      for (let index = 0; index < Game.length; index++) {
+         for (let J = 0; J < Game[index].length; J++) 
+         {
+            var Div = document.createElement("div")
+            if(Game[index][J] == 1)
+            {
+               Div.setAttribute("class","Celula_Life");
+               Div.setAttribute("ID","Celula:"+index+";"+J);
+               contenedor[0].appendChild(Div);  
+            }
+            else
+            {
+               Div.setAttribute("class","Celula_Dead");
+               Div.setAttribute("ID","Celula:"+index+";"+J);
+               contenedor[0].appendChild(Div);  
+            }
+         }
+
+      }  
+   }
+   </script>
+
+</html>
